@@ -1,0 +1,11 @@
+{
+  "name": "Yemek Sepeti Joker Hesaplayıcı",
+  "description": "Joker indirimlerini ürün bazında hesaplar.",
+  "version": "0.1",
+  "permissions": [ "webNavigation", "https://www.yemeksepeti.com/siparis/bilgi*" ],
+  "content_scripts": [{
+    "matches": ["https://www.yemeksepeti.com/siparis/bilgi*"],
+    "js": ["jquery.min.js", "index.js"]
+  }],
+  "manifest_version": 2
+}
