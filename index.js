@@ -116,5 +116,11 @@ comboBox.change(round);
 for(var i=0; i < roundOptions.length; i++) {
 	comboBox.append($('<option />', {text: roundOptions[i], value: i}));
 }
-$('.ys-basket h3').append(comboBox);
 
+var roundStepButton = $('<button>Küsürat</button>').css("float", "right");
+roundStepButton.click(function() {
+	roundStep = window.prompt("Yuvarlarken kullanılacak minimum küsürat aralığı (TL):", roundStep);
+});
+
+$('.ys-basket h3').append(roundStepButton);
+$(roundStepButton).after(comboBox);
