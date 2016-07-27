@@ -1,0 +1,1 @@
+// todo: yuvarlama ile ilgili fonksiyonlar burada yer alacak

@@ -8,12 +8,12 @@ function priceToString(price) {
 	return price.replace(".", ",");
 }
 
+// oran hesapla
 var fullPrice = parsePrice( $('.ys-basket .ys-overline')[0].innerHTML );
 var price = parsePrice( $('.ys-basket .total')[1].innerHTML );
-
-
 var ratio = price/fullPrice;
 
+// yeni fiyatları yaz
 $(".tdOrderPrice").each(function() {
 	var result = parsePrice($(this)[0].innerHTML) * ratio;
 	
@@ -22,3 +22,22 @@ $(".tdOrderPrice").each(function() {
 		$(this).html(oldDiv +'<div style="color:#391">'+priceToString(result)+'</div>');
 	}
 });
+
+// yuvarlama
+var roundOptions = ["Küsüratlı bırak"];
+function round() {
+	var option = $(this).val();
+
+	switch(option) {
+		default:
+			// do nothing
+	}
+}
+
+var comboBox = $('<select />').css("float", "right");
+comboBox.change(round);
+for(var i=0; i < roundOptions.length; i++) {
+	comboBox.append($('<option />', {text: roundOptions[i], value: i}));
+}
+$('.ys-basket h3').append(comboBox);
+
