@@ -83,9 +83,9 @@ var defaultPrices = getPrices();
 
 // yuvarlama
 var roundOptions = [
-	"Küsüratlı bırak",
-	"Küsüratı en ucuz olana ekle.",
-	"Küsüratı en pahalı olana ekle."
+	"Küsuratlı bırak",
+	"Küsuratı en ucuz olana ekle.",
+	"Küsuratı en pahalı olana ekle."
 ];
 function round() {
 	var option = $(this).val();
@@ -117,9 +117,9 @@ for(var i=0; i < roundOptions.length; i++) {
 	comboBox.append($('<option />', {text: roundOptions[i], value: i}));
 }
 
-var roundStepButton = $('<button>Küsürat</button>').css("float", "right");
+var roundStepButton = $('<button>Küsurat</button>').css("float", "right");
 roundStepButton.click(function() {
-	roundStep = window.prompt("Yuvarlarken kullanılacak minimum küsürat aralığı (TL):", roundStep);
+	roundStep = window.prompt("Yuvarlarken kullanılacak minimum küsurat aralığı (TL):", roundStep);
 });
 
 $('.ys-basket h3').append(roundStepButton);
