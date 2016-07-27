@@ -5,10 +5,10 @@
   "icons": { "16": "icons/16.gif",
            "48": "icons/48.gif",
           "128": "icons/128.gif" },
-  "permissions": [ "webNavigation", "https://www.yemeksepeti.com/siparis/bilgi*" ],
+  "permissions": ["https://www.yemeksepeti.com/siparis/bilgi*" ],
   "content_scripts": [{
     "matches": ["https://www.yemeksepeti.com/siparis/bilgi*"],
-    "js": ["jquery.min.js", "round.js", "index.js"]
+    "js": ["jquery.min.js", "index.js"]
   }],
   "manifest_version": 2
 }
