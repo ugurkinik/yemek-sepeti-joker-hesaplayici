@@ -74,8 +74,8 @@ $(".tdOrderPrice").each(function() {
 	var result = parsePrice($(this)[0].innerHTML) * ratio;
 	
 	if(!isNaN(result)) {
-		var oldDiv = '<div style="text-decoration:line-through">'+ $(this)[0].innerHTML +'</div>'
-		$(this).html(oldDiv +'<div class="newPrice" style="color:#391">'+priceToString(result)+'</div>');
+		var oldDiv = '<div class="oldPrice">'+ $(this)[0].innerHTML +'</div>'
+		$(this).html(oldDiv +'<div class="newPrice">'+priceToString(result)+'</div>');
 	}
 });
 
@@ -111,13 +111,13 @@ function round() {
 	writePrices(prices);
 }
 
-var comboBox = $('<select />').css("float", "right");
+var comboBox = $('<select class="roundOptions" />');
 comboBox.change(round);
 for(var i=0; i < roundOptions.length; i++) {
 	comboBox.append($('<option />', {text: roundOptions[i], value: i}));
 }
 
-var roundStepButton = $('<button>Küsurat</button>').css("float", "right");
+var roundStepButton = $('<button class="roundStep">Küsurat</button>');
 roundStepButton.click(function() {
 	roundStep = window.prompt("Yuvarlarken kullanılacak minimum küsurat aralığı (TL):", roundStep);
 });

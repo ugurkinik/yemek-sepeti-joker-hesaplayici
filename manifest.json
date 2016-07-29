@@ -10,7 +10,8 @@
   "permissions": ["https://www.yemeksepeti.com/siparis/bilgi*"],
   "content_scripts": [{
     "matches": ["https://www.yemeksepeti.com/siparis/bilgi*"],
-    "js": ["jquery.min.js", "index.js"]
+    "js": ["jquery.min.js", "index.js"],
+    "css": ["style.css"]
   }],
   "manifest_version": 2
 }
