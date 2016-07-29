@@ -1,22 +1,22 @@
 .oldPrice {
-	text-decoration: line-through;
+    text-decoration: line-through;
 }
 
 .newPrice {
-	color: #391;
+    color: #391;
 }
 
 .roundOptions {
-	float: right;
-	border-radius: 3px;
+    float: right;
+    border-radius: 3px;
     background: #eee;
     border: 1px solid #ccc;
     font-weight: normal;
 }
 
 .roundStep {
-	float: right;
-	padding: 3px 8px;
+    float: right;
+    padding: 3px 8px;
     border-radius: 4px;
     background: #f71;
     border: 1px solid #e51;
@@ -25,5 +25,5 @@
 }
 
 .roundStep:hover {
-	background: #f82;
+    background: #f82;
 }
