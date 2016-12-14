@@ -7,6 +7,11 @@ Yükleme:
 
 Changelog:
 -------
+v0.4:
+- Yuvarlama algoritması geliştirildi.
+- Küsürat aralığı belirleme butonu kaldırıldı. (aralık 50 kuruşa sabitlendi)
+- İçeriği kolay kopayalama butonu eklendi.
+
 v0.3:
 - Görsel geliştirmeler yapıldı.
 
