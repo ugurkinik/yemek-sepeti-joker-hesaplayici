@@ -1,4 +1,6 @@
 var roundStep = 0.5;
+var fullPrice, price, ratio;
+
 
 function parsePrice(text) {
     text = text+"";
@@ -77,6 +79,10 @@ function isJoker() {
 
 // oran hesapla
 function run() {
+    fullPrice = parsePrice( $('.ys-basket .ys-overline')[0].innerHTML );
+    price = parsePrice( $('.ys-basket .total')[1].innerHTML );
+    ratio = price/fullPrice;
+
     // yeni fiyatları yaz
     $(".tdOrderPrice").each(function() {
         var result = parsePrice($(this)[0].innerHTML) * ratio;
@@ -132,13 +138,52 @@ function run() {
 
     $('.ys-basket h3').append(roundStepButton);
     $(roundStepButton).after(comboBox);
+
+    var copyButton = $('<button class="copyButton">Kopyala</button>');
+    copyButton.click(function() {
+        copyContent();
+    });
+    $('.ys-basket h3 a').after(copyButton);
+}
+
+function copyContent() {
+    var title = $('.ys-basket h3 a').html();
+    var dash = title.replace(/./g, "-");
+    var names = $(".tdOrderName b");
+    var counts = $(".tdOrderCount");
+    var prices = $(".newPrice");
+
+    var content = "";
+    content += title +"\n";
+    content += dash +"\n";
+
+    for(var i=0; i<names.length; i++) {
+        var count = counts[i+1].innerText;
+        if(count > 1) {
+            content += "(x"+count+") ";
+        }
+
+        content += names[i].innerText +": "+ prices[i].innerText +"\n";
+    }
+
+    content += dash +"\n";
+    
+    var infoTds = $(".order-detail-table td");
+
+    for(i=0; i<infoTds.length; i++) {
+        if(infoTds[i].innerText == "Ödeme Şekli:") {
+            content += infoTds[i+1].innerText;
+        }
+    }
+
+    var temp = $("<textarea>");
+    $("body").append(temp);
+    temp.val(content).select();
+    document.execCommand("copy");
+    temp.remove();
 }
 
 // main
-var fullPrice = parsePrice( $('.ys-basket .ys-overline')[0].innerHTML );
-var price = parsePrice( $('.ys-basket .total')[1].innerHTML );
-var ratio = price/fullPrice;
-
 if(isJoker()) {
     run();
 }

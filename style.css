@@ -14,7 +14,7 @@
     font-weight: normal;
 }
 
-.roundStep {
+.roundStep, .copyButton {
     float: right;
     padding: 3px 8px;
     border-radius: 4px;
@@ -24,6 +24,14 @@
     margin-left: 3px;
 }
 
-.roundStep:hover {
+.roundStep:hover, .copyButton:hover {
     background: #f82;
+}
+
+.shareButton {
+    display: block;
+    width: 32px;
+    height: 32px;
+    float: left;
+    background: url(icons/share.png)
 }
