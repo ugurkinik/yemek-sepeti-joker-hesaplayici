@@ -1,4 +1,4 @@
-var roundStep = 0.5;
+const ROUND_STEP = 0.5;
 var fullPrice, price, ratio;
 
 
@@ -55,10 +55,10 @@ function dropCoin(prices, count) {
         if(isNaN(prices[i]) || isNaN(count[i+1])) {
             response.newPrices[i] = NaN;
         } else {
-            if(prices[i]%roundStep > roundStep/2) {
-                response.newPrices[i] = prices[i] + (roundStep - prices[i]%roundStep);
+            if(prices[i]%ROUND_STEP > ROUND_STEP/2) {
+                response.newPrices[i] = prices[i] + (ROUND_STEP - prices[i]%ROUND_STEP);
             } else {
-                response.newPrices[i] = prices[i] - prices[i]%roundStep;
+                response.newPrices[i] = prices[i] - prices[i]%ROUND_STEP;
             }
 
             newTotal += count[i+1] * response.newPrices[i];
@@ -131,13 +131,7 @@ function run() {
         comboBox.append($('<option />', {text: roundOptions[i], value: i}));
     }
 
-    var roundStepButton = $('<button class="roundStep">Küsurat</button>');
-    roundStepButton.click(function() {
-        roundStep = window.prompt("Yuvarlarken kullanılacak minimum küsurat aralığı (TL):", roundStep);
-    });
-
-    $('.ys-basket h3').append(roundStepButton);
-    $(roundStepButton).after(comboBox);
+    $('.ys-basket h3').append(comboBox);
 
     var copyButton = $('<button class="copyButton">Kopyala</button>');
     copyButton.click(function() {

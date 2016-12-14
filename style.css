@@ -14,7 +14,7 @@
     font-weight: normal;
 }
 
-.roundStep, .copyButton {
+.copyButton {
     float: right;
     padding: 3px 8px;
     border-radius: 4px;
@@ -24,7 +24,7 @@
     margin-left: 3px;
 }
 
-.roundStep:hover, .copyButton:hover {
+.copyButton:hover {
     background: #f82;
 }
 
