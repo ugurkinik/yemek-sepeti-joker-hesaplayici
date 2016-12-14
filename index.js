@@ -53,7 +53,12 @@ function dropCoin(prices, count) {
         if(isNaN(prices[i]) || isNaN(count[i+1])) {
             response.newPrices[i] = NaN;
         } else {
-            response.newPrices[i] = prices[i] - prices[i]%roundStep;
+            if(prices[i]%roundStep > roundStep/2) {
+                response.newPrices[i] = prices[i] + (roundStep - prices[i]%roundStep);
+            } else {
+                response.newPrices[i] = prices[i] - prices[i]%roundStep;
+            }
+
             newTotal += count[i+1] * response.newPrices[i];
         }
     }
@@ -63,64 +68,77 @@ function dropCoin(prices, count) {
     return response;
 }
 
+function isJoker() {
+    if($(".checkout-info-joker").length)
+        return true;
+    else
+        return false;
+}
 
 // oran hesapla
+function run() {
+    // yeni fiyatları yaz
+    $(".tdOrderPrice").each(function() {
+        var result = parsePrice($(this)[0].innerHTML) * ratio;
+        
+        if(!isNaN(result)) {
+            var oldDiv = '<div class="oldPrice">'+ $(this)[0].innerHTML +'</div>'
+            $(this).html(oldDiv +'<div class="newPrice">'+priceToString(result)+'</div>');
+        }
+    });
+
+    var defaultPrices = getPrices();
+
+    // yuvarlama
+    var roundOptions = [
+        "Küsuratlı bırak",
+        "En ucuz ürünle dengele",
+        "En pahalı ürünle dengele"
+    ];
+    function round() {
+        var option = $(this).val();
+        var prices = defaultPrices ? defaultPrices : getPrices();
+        var count = getCount();
+
+        switch(option) {
+            case "1":
+                var response = dropCoin(prices, count);
+                prices = response.newPrices;
+                var index = prices.indexOf(Math.min.apply(Math, prices));
+                prices[index] += response.residue/count[index+1];
+                break;
+            case "2":
+                var response = dropCoin(prices, count);
+                prices = response.newPrices;
+                var index = prices.indexOf(Math.max.apply(Math, prices));
+                prices[index] += response.residue/count[index+1];
+                break;
+            default:
+                // do nothing
+        }
+        writePrices(prices);
+    }
+
+    var comboBox = $('<select class="roundOptions" />');
+    comboBox.change(round);
+    for(var i=0; i < roundOptions.length; i++) {
+        comboBox.append($('<option />', {text: roundOptions[i], value: i}));
+    }
+
+    var roundStepButton = $('<button class="roundStep">Küsurat</button>');
+    roundStepButton.click(function() {
+        roundStep = window.prompt("Yuvarlarken kullanılacak minimum küsurat aralığı (TL):", roundStep);
+    });
+
+    $('.ys-basket h3').append(roundStepButton);
+    $(roundStepButton).after(comboBox);
+}
+
+// main
 var fullPrice = parsePrice( $('.ys-basket .ys-overline')[0].innerHTML );
 var price = parsePrice( $('.ys-basket .total')[1].innerHTML );
 var ratio = price/fullPrice;
 
-// yeni fiyatları yaz
-$(".tdOrderPrice").each(function() {
-    var result = parsePrice($(this)[0].innerHTML) * ratio;
-    
-    if(!isNaN(result)) {
-        var oldDiv = '<div class="oldPrice">'+ $(this)[0].innerHTML +'</div>'
-        $(this).html(oldDiv +'<div class="newPrice">'+priceToString(result)+'</div>');
-    }
-});
-
-var defaultPrices = getPrices();
-
-// yuvarlama
-var roundOptions = [
-    "Küsuratlı bırak",
-    "Küsuratı en ucuz olana ekle.",
-    "Küsuratı en pahalı olana ekle."
-];
-function round() {
-    var option = $(this).val();
-    var prices = defaultPrices ? defaultPrices : getPrices();
-    var count = getCount();
-
-    switch(option) {
-        case "1":
-            var response = dropCoin(prices, count);
-            prices = response.newPrices;
-            var index = prices.indexOf(Math.min.apply(Math, prices));
-            prices[index] += response.residue/count[index+1];
-            break;
-        case "2":
-            var response = dropCoin(prices, count);
-            prices = response.newPrices;
-            var index = prices.indexOf(Math.max.apply(Math, prices));
-            prices[index] += response.residue/count[index+1];
-            break;
-        default:
-            // do nothing
-    }
-    writePrices(prices);
+if(isJoker()) {
+    run();
 }
-
-var comboBox = $('<select class="roundOptions" />');
-comboBox.change(round);
-for(var i=0; i < roundOptions.length; i++) {
-    comboBox.append($('<option />', {text: roundOptions[i], value: i}));
-}
-
-var roundStepButton = $('<button class="roundStep">Küsurat</button>');
-roundStepButton.click(function() {
-    roundStep = window.prompt("Yuvarlarken kullanılacak minimum küsurat aralığı (TL):", roundStep);
-});
-
-$('.ys-basket h3').append(roundStepButton);
-$(roundStepButton).after(comboBox);
