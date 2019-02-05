@@ -7,6 +7,9 @@ Yükleme:
 
 Changelog:
 -------
+v0.5:
+- Chrome Extension store için düzenlemeler yapıldı.
+
 v0.4:
 - Yuvarlama algoritması geliştirildi.
 - Küsürat aralığı belirleme butonu kaldırıldı. (aralık 50 kuruşa sabitlendi)
